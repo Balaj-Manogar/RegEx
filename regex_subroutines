@@ -16,16 +16,16 @@ Code:
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-final String regex = "(?x)\n"
+final String regex = "(?x)"
 	 + "# sample regex subroutine\n"
-	 + "(?&SIGN)?         # referring SIGN sub routine regex\n"
-	 + "(?&MANTISSA)     # referring MANTISSA sub routine regex\n"
-	 + "(?&EXPONENT)     # referring EXPONENT sub routine regex\n\n"
+	 + "(?&SIGN)?         # referring SIGN sub routine regex"
+	 + "(?&MANTISSA)     # referring MANTISSA sub routine regex"
+	 + "(?&EXPONENT)     # referring EXPONENT sub routine regex"
 	 + "(?(DEFINE)\n"
-	 + "   (?<SIGN>     [+-]                       )\n"
-	 + "   (?<MANTISSA> \\d++ \\.?+ \\d*+ | \\. \\d++   )\n"
-	 + "   (?<EXPONENT> [eE] (?&SIGN)?+ \\d++       )\n"
-	 + ")\n";
+	 + "   (?<SIGN>     [+-]                       )"
+	 + "   (?<MANTISSA> \\d++ \\.?+ \\d*+ | \\. \\d++   )"
+	 + "   (?<EXPONENT> [eE] (?&SIGN)?+ \\d++       )"
+	 + ")";
 final String string = "1.6E-35";
 
 final Pattern pattern = Pattern.compile(regex);
