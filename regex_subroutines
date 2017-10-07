@@ -1,0 +1,40 @@
+(?x)
+# sample regex subroutine
+(?&SIGN)?         # referring SIGN sub routine regex
+(?&MANTISSA)     # referring MANTISSA sub routine regex
+(?&EXPONENT)     # referring EXPONENT sub routine regex
+
+(?(DEFINE)
+   (?<SIGN>     [+-]                       )
+   (?<MANTISSA> \d++ \.?+ \d*+ | \. \d++   )
+   (?<EXPONENT> [eE] (?&SIGN)?+ \d++       )
+)
+
+To match scientific notation -> 1.6E-35
+
+Code:
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+final String regex = "(?x)\n"
+	 + "# sample regex subroutine\n"
+	 + "(?&SIGN)?         # referring SIGN sub routine regex\n"
+	 + "(?&MANTISSA)     # referring MANTISSA sub routine regex\n"
+	 + "(?&EXPONENT)     # referring EXPONENT sub routine regex\n\n"
+	 + "(?(DEFINE)\n"
+	 + "   (?<SIGN>     [+-]                       )\n"
+	 + "   (?<MANTISSA> \\d++ \\.?+ \\d*+ | \\. \\d++   )\n"
+	 + "   (?<EXPONENT> [eE] (?&SIGN)?+ \\d++       )\n"
+	 + ")\n";
+final String string = "1.6E-35";
+
+final Pattern pattern = Pattern.compile(regex);
+final Matcher matcher = pattern.matcher(string);
+
+while (matcher.find()) {
+    System.out.println("Full match: " + matcher.group(0));
+    for (int i = 1; i <= matcher.groupCount(); i++) {
+        System.out.println("Group " + i + ": " + matcher.group(i));
+    }
+}
+
